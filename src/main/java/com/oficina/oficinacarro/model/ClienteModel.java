@@ -1,6 +1,9 @@
 package com.oficina.oficinacarro.model;
 
+import jakarta.persistence.Id;
+
 public class ClienteModel {
+    @Id
     private Long id;
     private String nome;
     private String cpf;
