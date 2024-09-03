@@ -1,16 +1,26 @@
 package com.oficina.oficinacarro.model;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity(name = "ClienteModels")
+@Table(name = "cliente", schema = "oficina")
 public class ClienteModel {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "nome", nullable = false)
     private String nome;
+    @Column(name = "cpf", nullable = false)
     private String cpf;
+    @Column(name = "telefone", nullable = false)
     private String telefone;
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "endereco", nullable = false)
     private String endereco;
+    @Column(name = "login", nullable = false)
     private String login;
+    @Column(name = "senha", nullable = false)
     private String senha;
 
     public ClienteModel() {
@@ -30,11 +40,11 @@ public class ClienteModel {
                 '}';
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
