@@ -9,5 +9,6 @@ CREATE TABLE `oficina`.`cliente`
     `endereco` VARCHAR(45) NOT NULL,
     `login`    VARCHAR(45) NOT NULL,
     `senha`    VARCHAR(45) NOT NULL,
+    `veiculo`    VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`, `cpf`)
 );

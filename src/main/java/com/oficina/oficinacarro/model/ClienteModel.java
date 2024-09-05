@@ -2,12 +2,12 @@ package com.oficina.oficinacarro.model;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.oficina.oficinacarro.model.VeiculoModel;
 
-@Entity(name = "ClienteModels")
+
 @Table(name = "cliente", schema = "oficina")
 public class ClienteModel {
 
+    private VeiculoModel veiculoModel;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,8 +26,11 @@ public class ClienteModel {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+
     public ClienteModel() {
+        this.veiculoModel = veiculoModel;
     }
+
 
 
     @Override
