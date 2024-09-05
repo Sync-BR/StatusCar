@@ -1,10 +1,13 @@
 package com.oficina.oficinacarro.model;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.oficina.oficinacarro.model.VeiculoModel;
 
 @Entity(name = "ClienteModels")
 @Table(name = "cliente", schema = "oficina")
 public class ClienteModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,6 +29,7 @@ public class ClienteModel {
     public ClienteModel() {
     }
 
+
     @Override
     public String toString() {
         return "ClienteModel{" +
@@ -39,6 +43,8 @@ public class ClienteModel {
                 ", senha='" + senha + '\'' +
                 '}';
     }
+
+
 
     public int getId() {
         return id;

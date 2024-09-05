@@ -1,27 +1,36 @@
 package com.oficina.oficinacarro.model;
 
+import com.oficina.oficinacarro.enums.stateCar;
+
 public class VeiculoModel {
     private int id;
-    private ClienteModel cliente;
+    private ClienteModel cliente = new ClienteModel();
     private String veiculo;
     private String placa;
     private String modelo;
     private int ano;
+    private stateCar statecar;
 
     public VeiculoModel() {
+        cliente = new ClienteModel();
     }
 
-    @Override
-    public String toString() {
-        return "VeiculoModel{" +
-                "id=" + id +
-                ", cliente=" + cliente +
-                ", veiculo='" + veiculo + '\'' +
-                ", placa='" + placa + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", ano=" + ano +
-                '}';
+    public VeiculoModel(int id, ClienteModel cliente, String veiculo, String placa, String modelo, int ano) {
+        this.id = id;
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+        this.placa = placa;
+        this.modelo = modelo;
+        this.ano = ano;
     }
+
+    public static void main(String[] args) {
+        VeiculoModel veiculoModel = new VeiculoModel();
+        String status = stateCar.etapa_2.getState();
+        System.out.println(status);
+
+    }
+
 
     public int getId() {
         return id;
