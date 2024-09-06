@@ -3,11 +3,10 @@ package com.oficina.oficinacarro.model;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+@Entity(name = "ClienteModel")
 @Table(name = "cliente", schema = "oficina")
 public class ClienteModel {
 
-    private VeiculoModel veiculoModel;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -28,7 +27,6 @@ public class ClienteModel {
 
 
     public ClienteModel() {
-        this.veiculoModel = veiculoModel;
     }
 
 
