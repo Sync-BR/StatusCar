@@ -4,6 +4,7 @@ import com.oficina.oficinacarro.model.AutenticacaoModel;
 import com.oficina.oficinacarro.model.ClienteModel;
 import com.oficina.oficinacarro.repository.ClienteRepository;
 import com.oficina.oficinacarro.repository.LoginRepository;
+import com.oficina.oficinacarro.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
         private LoginRepository loginRepository;
     @Autowired()
         private ClienteRepository clienteRepository;
+    @Autowired
+    private EmailService emailService;
 
-        @PostMapping("/login{username}password{password}")
+    @PostMapping("/login{username}password{password}")
         public ResponseEntity<HttpStatus> login(@PathVariable String username, @PathVariable String password) {
             AutenticacaoModel user = loginRepository.findByUsuario(username);
             System.out.println(user);
@@ -47,7 +50,15 @@ import org.springframework.web.bind.annotation.*;
         @PostMapping("/usersLogin{email}")
         public ResponseEntity<ClienteModel> recuperarSenha(@PathVariable String email) {
             ClienteModel clienteRecover =  clienteRepository.findByEmail(email);
-            System.out.println(clienteRecover);
-            return new ResponseEntity<>(clienteRecover,HttpStatus.OK);
+            if (clienteRecover != null) {
+                // Enviar e-mail de recuperação de senha
+                String subject = "Recuperação de senha";
+                String text = "Olá, " + clienteRecover.getNome() +
+                        ". Sua senha é: " + clienteRecover.getSenha();
+                emailService.sendEmail(clienteRecover.getEmail(), subject, text);
+                return new ResponseEntity<>(clienteRecover, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
     }

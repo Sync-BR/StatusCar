@@ -1,5 +1,6 @@
 package com.oficina.oficinacarro.model;
 
+import com.oficina.oficinacarro.enums.UsersEnums;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +25,8 @@ public class ClienteModel {
     private String login;
     @Column(name = "senha", nullable = false)
     private String senha;
+    @Column(name = "rank", nullable = false)
+    private UsersEnums rank;
 
 
     public ClienteModel() {
@@ -109,5 +112,13 @@ public class ClienteModel {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public UsersEnums getRank() {
+        return rank;
+    }
+
+    public void setRank(UsersEnums rank) {
+        this.rank = rank;
     }
 }
