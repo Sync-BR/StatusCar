@@ -1,10 +1,12 @@
 package com.oficina.oficinacarro.model;
 
+import com.oficina.oficinacarro.enums.UsersEnums;
 import jakarta.persistence.*;
 
-@Entity(name = "ClienteModels")
+@Entity(name = "ClienteModel")
 @Table(name = "cliente", schema = "oficina")
 public class ClienteModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,9 +24,14 @@ public class ClienteModel {
     private String login;
     @Column(name = "senha", nullable = false)
     private String senha;
+    @Column(name = "rank", nullable = false)
+    private UsersEnums rank;
+
 
     public ClienteModel() {
     }
+
+
 
     @Override
     public String toString() {
@@ -39,6 +46,8 @@ public class ClienteModel {
                 ", senha='" + senha + '\'' +
                 '}';
     }
+
+
 
     public int getId() {
         return id;
@@ -102,5 +111,13 @@ public class ClienteModel {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public UsersEnums getRank() {
+        return rank;
+    }
+
+    public void setRank(UsersEnums rank) {
+        this.rank = rank;
     }
 }

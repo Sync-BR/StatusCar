@@ -1,5 +1,7 @@
-# Sobre o uso da api
-## Exemplo para criar um novo usuario
+# Sobre o uso do api
+...
+## Funcionalidade de usuário.
+### Exemplo para criar um novo usuario
 Link para adicioanr usuario em json: `http://localhost:8080/api/user/add`
 
     {
@@ -27,3 +29,17 @@ corpo para enviar com os dados atualizado.
         "login": "joaosilva",
         "senha": "senhaSecreta123"
         }
+
+## Funcionalide de login.
+..
+### Exemplo de autenticação
+Link para efetuar o login: http://localhost:8080/api/user/login{username}password{password}
+Substituir os parametros {} pelo usuario e senha, Exemplo: /loginSYNCpassword1415
+
+Login: SYNC
+
+Senha: 1415
+### Exemplo de recuperação de senha:
+Link para recuperar uma senha: http://localhost:8080/api/user/usersLogin{email}
+Substituir {} pelo email cadastrado.
+
