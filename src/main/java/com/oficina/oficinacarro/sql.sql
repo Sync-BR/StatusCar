@@ -1,7 +1,6 @@
--- Cria o esquema 'oficina'
+
 CREATE SCHEMA `oficina`;
 
--- Tabela de clientes
 CREATE TABLE `oficina`.`cliente`
 (
     `id`       INT         NOT NULL AUTO_INCREMENT,
@@ -14,14 +13,13 @@ CREATE TABLE `oficina`.`cliente`
     `senha`    VARCHAR(45) NOT NULL,
     `rank` TINYINT(1) NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE (`cpf`) -- CPF é único
+    UNIQUE (`cpf`)
 );
 
--- Tabela de veículos, referenciando o cliente
 CREATE TABLE `oficina`.`veiculo`
 (
     `id`        INT         NOT NULL AUTO_INCREMENT,
-    `cliente_id` INT        NOT NULL, -- chave estrangeira para cliente
+    `cliente_id` INT        NOT NULL,
     `veiculo`   VARCHAR(45) NOT NULL,
     `placa`     VARCHAR(10) NOT NULL,
     `modelo`    VARCHAR(45) NOT NULL,

@@ -2,7 +2,6 @@ package com.oficina.oficinacarro.model;
 
 import com.oficina.oficinacarro.enums.UsersEnums;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity(name = "ClienteModel")
 @Table(name = "cliente", schema = "oficina")

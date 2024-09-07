@@ -51,7 +51,6 @@ import org.springframework.web.bind.annotation.*;
         public ResponseEntity<ClienteModel> recuperarSenha(@PathVariable String email) {
             ClienteModel clienteRecover =  clienteRepository.findByEmail(email);
             if (clienteRecover != null) {
-                // Enviar e-mail de recuperação de senha
                 String subject = "Recuperação de senha";
                 String text = "Olá, " + clienteRecover.getNome() +
                         ". Sua senha é: " + clienteRecover.getSenha();
