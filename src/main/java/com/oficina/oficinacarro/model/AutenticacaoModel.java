@@ -1,41 +1,45 @@
 package com.oficina.oficinacarro.model;
 
 import com.oficina.oficinacarro.enums.UsersEnums;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity(name = "AutenticacaoModel")
 @Table(name = "cliente", schema = "oficina")
 public class AutenticacaoModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "login", nullable = false)
     private String usuario;
     @Column(name = "senha", nullable = false)
     private String senha;
     @Column(name = "rank", nullable = false)
     private UsersEnums rank;
-    @Id
-    private Long id;
+    @Column(name = "cpf", nullable = false)
+    private String cpf;
 
     public AutenticacaoModel() {
 
-    }
-    public AutenticacaoModel(String usuario, String senha) {
-        this.usuario = usuario;
-        this.senha = senha;
-        this.rank = rank;
     }
 
     @Override
     public String toString() {
         return "AutenticacaoModel{" +
-                "usuario='" + usuario + '\'' +
+                "id=" + id +
+                ", usuario='" + usuario + '\'' +
                 ", senha='" + senha + '\'' +
                 ", rank=" + rank +
-                ", id=" + id +
+                ", cpf='" + cpf + '\'' +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsuario() {
@@ -62,11 +66,11 @@ public class AutenticacaoModel {
         this.rank = rank;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getCpf() {
+        return cpf;
     }
 
-    public Long getId() {
-        return id;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
