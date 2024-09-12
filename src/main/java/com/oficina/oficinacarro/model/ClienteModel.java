@@ -1,7 +1,11 @@
 package com.oficina.oficinacarro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.oficina.oficinacarro.enums.UsersEnums;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "ClienteModel")
 @Table(name = "cliente", schema = "oficina")
@@ -24,13 +28,16 @@ public class ClienteModel {
     private String login;
     @Column(name = "senha", nullable = false)
     private String senha;
-    @Column(name = "rank", nullable = false)
+    @Column(name = "rank", nullable = true)
     private UsersEnums rank;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore()
+
+    private List<VeiculoModel> veiculos;
 
 
     public ClienteModel() {
     }
-
 
 
     @Override
@@ -44,10 +51,10 @@ public class ClienteModel {
                 ", endereco='" + endereco + '\'' +
                 ", login='" + login + '\'' +
                 ", senha='" + senha + '\'' +
+                ", rank=" + rank +
+                ", veiculos=" + veiculos +
                 '}';
     }
-
-
 
     public int getId() {
         return id;
@@ -119,5 +126,13 @@ public class ClienteModel {
 
     public void setRank(UsersEnums rank) {
         this.rank = rank;
+    }
+
+    public List<VeiculoModel> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(List<VeiculoModel> veiculos) {
+        this.veiculos = veiculos;
     }
 }

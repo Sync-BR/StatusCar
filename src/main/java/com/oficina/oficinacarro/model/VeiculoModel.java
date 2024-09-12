@@ -1,18 +1,28 @@
 package com.oficina.oficinacarro.model;
 
 import com.oficina.oficinacarro.enums.stateCar;
+import jakarta.persistence.*;
 
+@Entity(name = "VeiculoModel")
+@Table(name = "veiculo", schema = "oficina")
 public class VeiculoModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private ClienteModel cliente = new ClienteModel();
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+    @Column(name = "veiculo",nullable = false)
     private String veiculo;
+    @Column(name = "placa",nullable = false)
     private String placa;
+    @Column(name = "modelo",nullable = false)
     private String modelo;
+    @Column(name = "ano",nullable = false)
     private int ano;
-    private stateCar statecar;
+
 
     public VeiculoModel() {
-        cliente = new ClienteModel();
     }
 
     public VeiculoModel(int id, ClienteModel cliente, String veiculo, String placa, String modelo, int ano) {

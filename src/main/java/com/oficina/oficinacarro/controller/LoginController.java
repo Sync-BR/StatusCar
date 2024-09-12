@@ -19,9 +19,10 @@ public class LoginController {
     private ClienteRepository clienteRepository;
     @Autowired
     private EmailService emailService;
-
+    @CrossOrigin(origins = "http://186.247.89.58:8080")
     @PostMapping("/login{cpf}password{password}")
     public ResponseEntity<HttpStatus> login(@PathVariable String cpf, @PathVariable String password) {
+        System.out.println("Login: " +cpf+ " Password: "+password);
         AutenticacaoModel user = loginRepository.findByCpf(cpf);
         if (user.getCpf().equals(cpf) && user.getSenha().equals(password)) {
             int rank = user.getRank().ordinal();
@@ -46,7 +47,9 @@ public class LoginController {
     }
 
     @PostMapping("/usersLogin{email}")
+
     public ResponseEntity<HttpStatus> recuperarSenha(@PathVariable String email) {
+        System.out.println("Passei");
         ClienteModel clienteRecover = clienteRepository.findByEmail(email);
         if (clienteRecover != null) {
             String subject = "Recuperação de senha";
