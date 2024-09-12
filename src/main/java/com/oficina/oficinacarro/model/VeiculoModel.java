@@ -1,6 +1,6 @@
 package com.oficina.oficinacarro.model;
 
-import com.oficina.oficinacarro.enums.stateCar;
+import com.oficina.oficinacarro.enums.StateCar;
 import jakarta.persistence.*;
 
 @Entity(name = "VeiculoModel")
@@ -9,9 +9,8 @@ public class VeiculoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    @Column(name = "cliente_id", nullable = false)
+    private int clienteID;
     @Column(name = "veiculo",nullable = false)
     private String veiculo;
     @Column(name = "placa",nullable = false)
@@ -20,27 +19,26 @@ public class VeiculoModel {
     private String modelo;
     @Column(name = "ano",nullable = false)
     private int ano;
+    @Column(name="status", nullable = false)
+    private StateCar stateCar;
+
 
 
     public VeiculoModel() {
+        stateCar = StateCar.Ausente;
     }
 
-    public VeiculoModel(int id, ClienteModel cliente, String veiculo, String placa, String modelo, int ano) {
-        this.id = id;
-        this.cliente = cliente;
-        this.veiculo = veiculo;
-        this.placa = placa;
-        this.modelo = modelo;
-        this.ano = ano;
+    @Override
+    public String toString() {
+        return "VeiculoModel{" +
+                "id=" + id +
+                ", clienteID=" + clienteID +
+                ", veiculo='" + veiculo + '\'' +
+                ", placa='" + placa + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", ano=" + ano +
+                '}';
     }
-
-    public static void main(String[] args) {
-        VeiculoModel veiculoModel = new VeiculoModel();
-        String status = stateCar.etapa_2.getState();
-        System.out.println(status);
-
-    }
-
 
     public int getId() {
         return id;
@@ -50,12 +48,12 @@ public class VeiculoModel {
         this.id = id;
     }
 
-    public ClienteModel getCliente() {
-        return cliente;
+    public int getClienteID() {
+        return clienteID;
     }
 
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
+    public void setClienteID(int clienteID) {
+        this.clienteID = clienteID;
     }
 
     public String getVeiculo() {
@@ -89,4 +87,22 @@ public class VeiculoModel {
     public void setAno(int ano) {
         this.ano = ano;
     }
+
+    public StateCar getStateCar() {
+        return stateCar;
+    }
+
+    public void setStateCar(StateCar stateCar) {
+        this.stateCar = stateCar;
+    }
+
+    public static void main(String[] args) {
+        VeiculoModel veiculoModel = new VeiculoModel();
+        String status = StateCar.etapa_2.getState();
+        System.out.println(status);
+
+    }
+
+
+
 }

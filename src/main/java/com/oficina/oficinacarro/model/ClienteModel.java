@@ -30,13 +30,13 @@ public class ClienteModel {
     private String senha;
     @Column(name = "rank", nullable = true)
     private UsersEnums rank;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clienteID", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore()
-
     private List<VeiculoModel> veiculos;
 
 
     public ClienteModel() {
+        veiculos = new ArrayList<>();
     }
 
 

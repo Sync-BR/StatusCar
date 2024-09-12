@@ -28,3 +28,5 @@ CREATE TABLE `oficina`.`veiculo`
     PRIMARY KEY (`id`),
     FOREIGN KEY (`cliente_id`) REFERENCES `cliente`(`id`) ON DELETE CASCADE
 );
+ALTER TABLE veiculo MODIFY cliente INT DEFAULT 0;
+

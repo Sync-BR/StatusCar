@@ -22,18 +22,11 @@ public class ClienteController {
 
     @PostMapping("/user/add")
     public ResponseEntity<HttpStatus> addCliente(@RequestBody ClienteModel cliente) {
-        for (VeiculoModel veiculo : cliente.getVeiculos()) {
-            System.out.println("Veiculo: " + veiculo);
-        }
-
-        for (VeiculoModel veiculo : cliente.getVeiculos()) {
-            veiculo.setCliente(cliente);
-        }
 
         clienteRepository.save(cliente);
         return new ResponseEntity<>(HttpStatus.CREATED);
 
-        // clienteRepository.save(cliente);
+
     }
 
     @DeleteMapping("/user/delete{id}")
