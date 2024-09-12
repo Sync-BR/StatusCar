@@ -1,16 +1,16 @@
 package com.oficina.oficinacarro.enums;
 
-public enum stateCar {
-    etapa_1("Veículo em espera"),
+public enum StateCar {
+    Ausente("Veículo em espera"),
     etapa_2("Veículo em análise"),
     etapa_3("Veículo em manutenção"),
     etapa_4("Veículo finalizado");
 
     private String state;
-    private stateCar(String state) {
+    private StateCar(String state) {
         this.state = state;
     }
-    private stateCar(){}
+    private StateCar(){}
 
     public String getState() {
         return state;
@@ -21,7 +21,7 @@ public enum stateCar {
     }
 
     public static void main(String[] args) {
-        String estado = stateCar.etapa_1.getState();
+        String estado = StateCar.etapa_4.getState();
         System.out.println(estado);
 
     }

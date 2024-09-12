@@ -1,6 +1,7 @@
 package com.oficina.oficinacarro.controller;
 
 import com.oficina.oficinacarro.model.ClienteModel;
+import com.oficina.oficinacarro.model.VeiculoModel;
 import com.oficina.oficinacarro.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,11 @@ public class ClienteController {
 
     @PostMapping("/user/add")
     public ResponseEntity<HttpStatus> addCliente(@RequestBody ClienteModel cliente) {
+
         clienteRepository.save(cliente);
         return new ResponseEntity<>(HttpStatus.CREATED);
+
+
     }
 
     @DeleteMapping("/user/delete{id}")

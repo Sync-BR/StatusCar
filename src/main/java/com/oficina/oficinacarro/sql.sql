@@ -24,6 +24,9 @@ CREATE TABLE `oficina`.`veiculo`
     `placa`     VARCHAR(10) NOT NULL,
     `modelo`    VARCHAR(45) NOT NULL,
     `ano`       INT         NOT NULL,
+    `status`    VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`cliente_id`) REFERENCES `cliente`(`id`) ON DELETE CASCADE
 );
+ALTER TABLE veiculo MODIFY cliente INT DEFAULT 0;
+
