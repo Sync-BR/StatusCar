@@ -21,24 +21,31 @@ public class LoginController {
     private EmailService emailService;
     @CrossOrigin(origins = "http://186.247.89.58:8080")
     @PostMapping("/login{cpf}password{password}")
-    public ResponseEntity<HttpStatus> login(@PathVariable String cpf, @PathVariable String password) {
+    public ResponseEntity<String> login(@PathVariable String cpf, @PathVariable String password) {
         System.out.println("Login: " +cpf+ " Password: "+password);
         AutenticacaoModel user = loginRepository.findByCpf(cpf);
         if (user.getCpf().equals(cpf) && user.getSenha().equals(password)) {
             int rank = user.getRank().ordinal();
+            long userID = user.getId();
+            int idInt = Integer.parseInt(String.valueOf(userID));
+            String json = "{" +
+                    "ID:" +userID+
+                    ",Rank:" +rank+
+                    "}";
+            System.out.println("Rank do user: "+rank+ " ID USER: "+idInt);
             switch (rank) {
                 case 0:
                     System.out.println("cliente");
-                    return new ResponseEntity<>(HttpStatus.OK);
+                    return new ResponseEntity<>(json,HttpStatus.OK);
                 case 1:
                     System.out.println("Consultores");
-                    return new ResponseEntity<>(HttpStatus.OK);
+                    return new ResponseEntity<>(json,HttpStatus.OK);
                 case 2:
                     System.out.println("Administradores");
-                    return new ResponseEntity<>(HttpStatus.OK);
+                    return new ResponseEntity<>(json,HttpStatus.OK);
                 case 3:
                     System.out.println("Desenvolvedor");
-                    return new ResponseEntity<>(HttpStatus.OK);
+                    return new ResponseEntity<>(json,HttpStatus.OK);
             }
 
 

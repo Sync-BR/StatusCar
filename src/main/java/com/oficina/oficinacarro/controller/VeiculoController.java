@@ -19,6 +19,7 @@ public class VeiculoController {
 
     @PostMapping("/addveiculo")
     public ResponseEntity<HttpStatus> addVeiculo( @RequestBody VeiculoModel veiculo) {
+        System.out.println(veiculo.getClienteID());
         veiculo.setStateCar(StateCar.Ausente);
         veiculoRepository.save(veiculo);
         return new ResponseEntity<>(HttpStatus.CREATED);

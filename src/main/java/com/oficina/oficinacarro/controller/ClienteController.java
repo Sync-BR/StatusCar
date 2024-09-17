@@ -14,7 +14,7 @@ import java.util.List;
 public class ClienteController {
     @Autowired(required = true)
     private ClienteRepository clienteRepository;
-
+    @GetMapping("/allClientes")
     public ResponseEntity<List<ClienteModel>> returnClientes(){
         List<ClienteModel> clientes = clienteRepository.findAll();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
