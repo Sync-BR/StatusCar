@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface VeiculoRepository extends JpaRepository<VeiculoModel, Long> {
     List<VeiculoModel> findByclienteID(int clienteID);
+    VeiculoModel findByplaca(String placa);
+    void deleteByplaca(String placa);
 }
