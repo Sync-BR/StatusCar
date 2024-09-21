@@ -1,12 +1,12 @@
 package com.oficina.oficinacarro.controller;
 
 import com.oficina.oficinacarro.enums.StateCar;
-import com.oficina.oficinacarro.model.ClienteModel;
 import com.oficina.oficinacarro.model.VeiculoModel;
 import com.oficina.oficinacarro.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +17,18 @@ public class VeiculoController {
     @Autowired(required = true)
     private VeiculoRepository veiculoRepository;
 
+    @PostMapping("/update/{placa}")
+    public ResponseEntity<VeiculoModel> updateVeiculo(@PathVariable String placa, @RequestBody VeiculoModel veiculoModel ) {
+        VeiculoModel veiculos = veiculoRepository.findByplaca(placa);
+        if(veiculos != null){
+            veiculoModel.setId(veiculos.getId());
+            veiculoModel.setClienteID(veiculos.getClienteID());
+            veiculoRepository.save(veiculoModel);
+        }
+       return new ResponseEntity<>(veiculos, HttpStatus.OK);
+    }
+
+
     @PostMapping("/addveiculo")
     public ResponseEntity<HttpStatus> addVeiculo( @RequestBody VeiculoModel veiculo) {
         System.out.println(veiculo.getClienteID());
@@ -24,12 +36,20 @@ public class VeiculoController {
         veiculoRepository.save(veiculo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @GetMapping("/consultar/veiculos/{clienteId}")
     public ResponseEntity<List<VeiculoModel>> getVeiculo(@PathVariable int clienteId){
         List<VeiculoModel> veiculos = veiculoRepository.findByclienteID(clienteId);
 
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
+    }
+
+    @PostMapping("/deletar/{placa}")
+    @Transactional
+
+    public ResponseEntity<HttpStatus> deleteVeiculo(@PathVariable String placa) {
+            veiculoRepository.deleteByplaca(placa);
+            return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 }
