@@ -6,10 +6,9 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-@Entity(name = "ClienteModel")
-@Table(name = "cliente", schema = "oficina")
-public class ClienteModel {
+@Entity(name = "usuarios")
+@Table(name = "cliente", schema = "oficinacarro")
+public class UsuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,18 +27,17 @@ public class ClienteModel {
     private String senha;
     @Column(name = "tipo_usuario", nullable = true)
     private UsersEnums rank;
-    @OneToMany(mappedBy = "clienteID", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore()
-    private List<VeiculoModel> veiculos;
+   // @OneToMany(mappedBy = "clienteID", cascade = CascadeType.ALL, orphanRemoval = true)
+   // @JsonIgnore()
+   // private List<VeiculoModel> veiculos;
 
-
-    public ClienteModel() {
-        veiculos = new ArrayList<>();
+    public UsuarioModel() {
+      //  this.veiculos = new ArrayList<>();
     }
 
     @Override
     public String toString() {
-        return "ClienteModel{" +
+        return "UsuarioModel{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
@@ -48,7 +46,7 @@ public class ClienteModel {
                 ", endereco='" + endereco + '\'' +
                 ", senha='" + senha + '\'' +
                 ", rank=" + rank +
-                ", veiculos=" + veiculos +
+           //     ", veiculos=" + veiculos +
                 '}';
     }
 
@@ -116,11 +114,5 @@ public class ClienteModel {
         this.rank = rank;
     }
 
-    public List<VeiculoModel> getVeiculos() {
-        return veiculos;
-    }
 
-    public void setVeiculos(List<VeiculoModel> veiculos) {
-        this.veiculos = veiculos;
-    }
 }
