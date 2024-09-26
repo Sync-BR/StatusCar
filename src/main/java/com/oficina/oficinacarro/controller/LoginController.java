@@ -24,9 +24,9 @@ public class LoginController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public  int getRank(long id){
+    public  int getType(long id){
         UsuarioModel user = usuarioRepository.getReferenceById(id);
-        return user.getRank().ordinal();
+        return user.getTipo_user().ordinal();
     }
 
 
@@ -38,9 +38,9 @@ public class LoginController {
         AutenticacaoModel user = loginRepository.findByCpf(autenticacao.getCpf());
         if (user != null) {
             if(autenticacao.getCpf().equals(user.getCpf()) && autenticacao.getSenha().equals(user.getSenha())) {
-                long tipo = getRank(user.getId());
+                long tipo = getType(user.getId());
                 String json = "{" +
-                        "\"rank\": " + tipo + // Se tipo for numérico
+                        "\"tipo_user\": " + tipo + // Se tipo for numérico
                         "}";
                 return new ResponseEntity<>(json +tipo,HttpStatus.OK);
             }

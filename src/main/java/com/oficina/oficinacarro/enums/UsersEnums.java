@@ -1,8 +1,8 @@
 package com.oficina.oficinacarro.enums;
 
 public enum UsersEnums {
-    usuario("cliente"),
-    consultore("Consultores"),
+    cliente("Cliente"),
+    consultor("Consultores"),
     administrador("Administradores"),
     desenvolvimento("Desenvolvedor");
 
