@@ -26,7 +26,7 @@ public class UsuarioModel {
     @Column(name = "senha_cliente", nullable = false)
     private String senha;
     @Column(name = "tipo_usuario", nullable = true)
-    private UsersEnums rank;
+    private UsersEnums tipo_user;
    // @OneToMany(mappedBy = "clienteID", cascade = CascadeType.ALL, orphanRemoval = true)
    // @JsonIgnore()
    // private List<VeiculoModel> veiculos;
@@ -45,7 +45,7 @@ public class UsuarioModel {
                 ", email='" + email + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", senha='" + senha + '\'' +
-                ", rank=" + rank +
+                ", tipoUser=" + tipo_user +
            //     ", veiculos=" + veiculos +
                 '}';
     }
@@ -106,12 +106,12 @@ public class UsuarioModel {
         this.senha = senha;
     }
 
-    public UsersEnums getRank() {
-        return rank;
+    public UsersEnums getTipo_user() {
+        return tipo_user;
     }
 
-    public void setRank(UsersEnums rank) {
-        this.rank = rank;
+    public void setTipo_user(UsersEnums tipo_user) {
+        this.tipo_user = tipo_user;
     }
 
 
