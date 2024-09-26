@@ -2,8 +2,10 @@ package com.oficina.oficinacarro.controller;
 
 import com.oficina.oficinacarro.model.AutenticacaoModel;
 import com.oficina.oficinacarro.model.ClienteModel;
+import com.oficina.oficinacarro.model.UsuarioModel;
 import com.oficina.oficinacarro.repository.ClienteRepository;
 import com.oficina.oficinacarro.repository.LoginRepository;
+import com.oficina.oficinacarro.repository.UsuarioRepository;
 import com.oficina.oficinacarro.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,39 +21,35 @@ public class LoginController {
     private ClienteRepository clienteRepository;
     @Autowired
     private EmailService emailService;
-    @CrossOrigin(origins = "http://186.247.89.58:8080")
-    @PostMapping("/login{cpf}password{password}")
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public  int getRank(long id){
+        UsuarioModel user = usuarioRepository.getReferenceById(id);
+        return user.getRank().ordinal();
+    }
+
+
+    @PostMapping("/login/{cpf}/{password}")
     public ResponseEntity<String> login(@PathVariable String cpf, @PathVariable String password) {
-        System.out.println("Login: " +cpf+ " Password: "+password);
-        AutenticacaoModel user = loginRepository.findByCpf(cpf);
-        if (user.getCpf().equals(cpf) && user.getSenha().equals(password)) {
-            int rank = user.getRank().ordinal();
-            long userID = user.getId();
-            int idInt = Integer.parseInt(String.valueOf(userID));
-            String json = "{" +
-                    "ID:" +userID+
-                    ",Rank:" +rank+
-                    "}";
-            System.out.println("Rank do user: "+rank+ " ID USER: "+idInt);
-            switch (rank) {
-                case 0:
-                    System.out.println("cliente");
-                    return new ResponseEntity<>(json,HttpStatus.OK);
-                case 1:
-                    System.out.println("Consultores");
-                    return new ResponseEntity<>(json,HttpStatus.OK);
-                case 2:
-                    System.out.println("Administradores");
-                    return new ResponseEntity<>(json,HttpStatus.OK);
-                case 3:
-                    System.out.println("Desenvolvedor");
-                    return new ResponseEntity<>(json,HttpStatus.OK);
+        AutenticacaoModel autenticacao = new AutenticacaoModel();
+        autenticacao.setCpf(cpf);
+        autenticacao.setSenha(password);
+        AutenticacaoModel user = loginRepository.findByCpf(autenticacao.getCpf());
+        if (user != null) {
+            if(autenticacao.getCpf().equals(user.getCpf()) && autenticacao.getSenha().equals(user.getSenha())) {
+                long tipo = getRank(user.getId());
+                String json = "{" +
+                        "\"rank\": " + tipo + // Se tipo for numérico
+                        "}";
+                return new ResponseEntity<>(json +tipo,HttpStatus.OK);
             }
-
-
         }
+
+
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
+
 
     @PostMapping("/usersLogin{email}")
 

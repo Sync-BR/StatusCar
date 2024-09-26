@@ -5,49 +5,45 @@ import jakarta.persistence.*;
 
 
 @Entity(name = "AutenticacaoModel")
-@Table(name = "cliente", schema = "oficina")
+@Table(name = "autenticacao", schema = "oficinacarro")
 public class AutenticacaoModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "login", nullable = false)
-    private String usuario;
-    @Column(name = "senha", nullable = false)
-    private String senha;
-    @Column(name = "rank", nullable = false)
-    private UsersEnums rank;
-    @Column(name = "cpf", nullable = false)
+    @Column(name = "id_cliente_aut")
+    private int id;
+    @Column(name = "cpf_cliente_aut", nullable = false)
     private String cpf;
+    @Column(name = "senha_cliente_aut", nullable = false)
+    private String senha;
+
 
     public AutenticacaoModel() {
-
     }
+
+
 
     @Override
     public String toString() {
         return "AutenticacaoModel{" +
                 "id=" + id +
-                ", usuario='" + usuario + '\'' +
-                ", senha='" + senha + '\'' +
-                ", rank=" + rank +
                 ", cpf='" + cpf + '\'' +
+                ", senha='" + senha + '\'' +
                 '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getSenha() {
@@ -58,19 +54,5 @@ public class AutenticacaoModel {
         this.senha = senha;
     }
 
-    public UsersEnums getRank() {
-        return rank;
-    }
 
-    public void setRank(UsersEnums rank) {
-        this.rank = rank;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 }

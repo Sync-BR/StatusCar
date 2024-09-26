@@ -4,28 +4,23 @@ import com.oficina.oficinacarro.enums.StateCar;
 import jakarta.persistence.*;
 
 @Entity(name = "VeiculoModel")
-@Table(name = "veiculo", schema = "oficina")
+@Table(name = "veiculo", schema = "oficinacarro")
 public class VeiculoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "cliente_id", nullable = false)
+    @Column(name = "id_cliente", nullable = false)
     private int clienteID;
-    @Column(name = "veiculo",nullable = false)
-    private String veiculo;
-    @Column(name = "placa",nullable = false)
-    private String placa;
-    @Column(name = "modelo",nullable = false)
+    @Column(name = "modelo_veiculo",nullable = false)
     private String modelo;
-    @Column(name = "ano",nullable = false)
+    @Column(name = "placa_veiculo",nullable = false)
+    private String placa;
+    @Column(name = "marca_veiculo", nullable = false)
+    private String marca;
+    @Column(name = "ano_veiculo",nullable = false)
     private int ano;
-    @Column(name="status", nullable = false)
-    private StateCar stateCar;
-
-
 
     public VeiculoModel() {
-        stateCar = StateCar.Ausente;
     }
 
     @Override
@@ -33,9 +28,9 @@ public class VeiculoModel {
         return "VeiculoModel{" +
                 "id=" + id +
                 ", clienteID=" + clienteID +
-                ", veiculo='" + veiculo + '\'' +
-                ", placa='" + placa + '\'' +
                 ", modelo='" + modelo + '\'' +
+                ", placa='" + placa + '\'' +
+                ", marca='" + marca + '\'' +
                 ", ano=" + ano +
                 '}';
     }
@@ -56,12 +51,12 @@ public class VeiculoModel {
         this.clienteID = clienteID;
     }
 
-    public String getVeiculo() {
-        return veiculo;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setVeiculo(String veiculo) {
-        this.veiculo = veiculo;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getPlaca() {
@@ -72,12 +67,12 @@ public class VeiculoModel {
         this.placa = placa;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public int getAno() {
@@ -87,22 +82,4 @@ public class VeiculoModel {
     public void setAno(int ano) {
         this.ano = ano;
     }
-
-    public StateCar getStateCar() {
-        return stateCar;
-    }
-
-    public void setStateCar(StateCar stateCar) {
-        this.stateCar = stateCar;
-    }
-
-    public static void main(String[] args) {
-        VeiculoModel veiculoModel = new VeiculoModel();
-        String status = StateCar.etapa_2.getState();
-        System.out.println(status);
-
-    }
-
-
-
 }
