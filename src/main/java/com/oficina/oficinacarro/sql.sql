@@ -26,6 +26,8 @@ CREATE TABLE oficinacarro.veiculo (
 CREATE TABLE oficinacarro.status (
                                      id_status INT NOT NULL ,
                                      descricao_status VARCHAR(45) NOT NULL,
+                                     data_inicio_status TIMESTAMP NOT NULL,
+                                     data_fim_status TIMESTAMP DEFAULT NULL,
                                      PRIMARY KEY (id_status)
 );
 
