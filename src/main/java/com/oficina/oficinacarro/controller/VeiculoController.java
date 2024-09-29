@@ -18,8 +18,8 @@ import java.util.List;
 public class VeiculoController {
     @Autowired(required = true)
     private VeiculoRepository veiculoRepository;
-    @Autowired(required = true)
-    private StatusRepository statusRepository;
+//    @Autowired(required = true)
+//    private StatusRepository statusRepository;
 
     @PostMapping("/update/{placa}")
     public ResponseEntity<VeiculoModel> updateVeiculo(@PathVariable String placa, @RequestBody VeiculoModel veiculoModel) {
@@ -32,15 +32,15 @@ public class VeiculoController {
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
     }
 
-    private void addStatusDefault(StatusModel statusModel){
-        statusRepository.save(statusModel);
-    }
+    //    private void addStatusDefault(StatusModel statusModel) {
+//        statusRepository.save(statusModel);
+//    }
     @PostMapping("/addveiculo")
     public ResponseEntity<HttpStatus> addVeiculo(@RequestBody VeiculoModel veiculo) {
         System.out.println(veiculo.getClienteID());
         VeiculoModel veiculos = veiculoRepository.save(veiculo);
-        StatusModel statusModel = new StatusModel(veiculos.getId(),"Em analise");
-        addStatusDefault(statusModel);
+        StatusModel statusModel = new StatusModel(veiculos.getId(), "Em analise");
+//        addStatusDefault(statusModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -51,7 +51,7 @@ public class VeiculoController {
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
     }
 
-        @DeleteMapping("/deletar/{placa}")
+    @DeleteMapping("/deletar/{placa}")
     @Transactional
 
     public ResponseEntity<HttpStatus> deleteVeiculo(@PathVariable String placa) {

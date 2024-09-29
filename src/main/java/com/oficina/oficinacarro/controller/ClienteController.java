@@ -22,7 +22,6 @@ public class ClienteController {
     @PostMapping("/user/add")
     public ResponseEntity<HttpStatus> cadastrarCliente(@RequestBody ClienteModel cadCliente){
         if(cadCliente.getCpf().isEmpty()){
-            System.out.println("Estou sem dados");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             clienteRepository.save(cadCliente);
@@ -31,12 +30,6 @@ public class ClienteController {
     }
 
 
-    public ResponseEntity<HttpStatus> addCliente(@RequestBody ClienteModel cliente) {
-        System.out.println(cliente);
-
-        clienteRepository.save(cliente);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @DeleteMapping("/user/delete{id}")
     public ResponseEntity<HttpStatus> deleteCliente(@PathVariable Long id) {
