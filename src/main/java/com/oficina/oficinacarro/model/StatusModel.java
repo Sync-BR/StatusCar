@@ -5,12 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(name = "Status")
 @Table(name = "status", schema = "oficinacarro")
 public class StatusModel {
     @Id
+
     @Column(name = "id_status", nullable = false)
     private int id;
 
@@ -23,15 +26,19 @@ public class StatusModel {
     @Column(name = "data_fim_status")
     private Date dataFim;
 
+    public static void main(String[] args) throws ParseException {
+         StatusModel statusModel = new StatusModel(1, "pendente");
+        System.out.println(statusModel);
 
-    public StatusModel(int id, String emAnalise) {
     }
 
-    public StatusModel(int id, String status, Date dataInicio, Date dataFim) {
-        this.id = id;
-        this.status = status;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+    public StatusModel(int id, String emAnalise) {
+        dataInicio = new Date();
+    }
+
+    public StatusModel() {
+        dataInicio = new Date();
+
     }
 
     @Override
