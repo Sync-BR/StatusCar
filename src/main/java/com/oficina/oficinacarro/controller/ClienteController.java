@@ -22,7 +22,6 @@ public class ClienteController {
     @PostMapping("/user/add")
     public ResponseEntity<HttpStatus> cadastrarCliente(@RequestBody ClienteModel cadCliente){
         if(cadCliente.getCpf().isEmpty()){
-            System.out.println("Estou sem dados");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             clienteRepository.save(cadCliente);
