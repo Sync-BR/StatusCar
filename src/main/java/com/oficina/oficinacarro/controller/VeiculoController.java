@@ -5,21 +5,26 @@ import com.oficina.oficinacarro.model.StatusModel;
 import com.oficina.oficinacarro.model.VeiculoModel;
 import com.oficina.oficinacarro.repository.StatusRepository;
 import com.oficina.oficinacarro.repository.VeiculoRepository;
+import com.oficina.oficinacarro.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/veiculos")
 public class VeiculoController {
+
+    @Autowired
+    private VeiculoService veiculoService;
+
+
     @Autowired(required = true)
     private VeiculoRepository veiculoRepository;
-//    @Autowired(required = true)
-//    private StatusRepository statusRepository;
+
 
     @PostMapping("/update/{placa}")
     public ResponseEntity<VeiculoModel> updateVeiculo(@PathVariable String placa, @RequestBody VeiculoModel veiculoModel) {
@@ -59,5 +64,20 @@ public class VeiculoController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+
+    // Endpoint para buscar o status do veículo
+    @GetMapping("/status/{id}")
+    public ResponseEntity<List<Object[]>> getStatusVeiculo(@PathVariable Long id) {
+        List<Object[]> status = veiculoService.getStatusVeiculo(id);
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
+    // Endpoint para alterar o status do veículo
+    @PostMapping("/status")
+    public ResponseEntity<Void> updateStatusVeiculo(@RequestParam Long id, @RequestParam Long novoStatus) {
+        veiculoService.updateStatusVeiculo(id, novoStatus);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

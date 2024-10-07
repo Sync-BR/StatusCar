@@ -12,8 +12,6 @@ import java.util.Date;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
 @RequestMapping("/api/status")
 public class StatusController {

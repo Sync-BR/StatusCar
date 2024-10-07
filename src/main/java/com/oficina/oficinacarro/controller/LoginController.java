@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 public class LoginController {
-    @Autowired()
+    @Autowired
     private LoginRepository loginRepository;
-    @Autowired()
+    @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
     private EmailService emailService;
