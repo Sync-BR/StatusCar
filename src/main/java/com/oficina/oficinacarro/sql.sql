@@ -27,7 +27,7 @@ CREATE TABLE oficinacarro.status (
                                      id_status INT NOT NULL ,
                                      descricao_status VARCHAR(45) NOT NULL,
                                      data_inicio_status TIMESTAMP NOT NULL,
-                                     data_fim_status TIMESTAMP DEFAULT NULL,
+                                     data_fim_status TIMESTAMP NULL DEFAULT NULl,
                                      PRIMARY KEY (id_status)
 );
 
@@ -151,5 +151,43 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- INSERTS PARA TESTES
+
+INSERT INTO cliente (id, nome_cliente, cpf_cliente, telefone_cliente, email_cliente, endereco_cliente, senha_cliente, tipo_usuario) VALUES
+(1, 'João Silva', '123.456.789-00', '(11) 98765-4321', 'joao.silva@example.com', 'Rua A, 123', 'senha123', 'Cliente'),
+(2, 'Maria Oliveira', '234.567.890-11', '(11) 97654-3210', 'maria.oliveira@example.com', 'Rua B, 456', 'senha456', 'Cliente'),
+(3, 'Carlos Santos', '345.678.901-22', '(11) 96543-2109', 'carlos.santos@example.com', 'Rua C, 789', 'senha789', 'Cliente'),
+(4, 'Ana Souza', '456.789.012-33', '(11) 95432-1098', 'ana.souza@example.com', 'Rua D, 101', 'senha101', 'Cliente'),
+(5, 'Lucas Pereira', '567.890.123-44', '(11) 94321-0987', 'lucas.pereira@example.com', 'Rua E, 202', 'senha202', 'Cliente');
+ SELECT * FROM cliente;
+
+ NSERT INTO oficinacarro.status (id_status, descricao_status, data_inicio_status) VALUES
+ (1, 'Aguardando chegada', CURRENT_TIMESTAMP),
+ (2, 'Ausente', CURRENT_TIMESTAMP),
+ (3, 'Atrasado', CURRENT_TIMESTAMP),
+ (4, 'Em Triagem', CURRENT_TIMESTAMP),
+ (5, 'Em manutenção', CURRENT_TIMESTAMP),
+ (6, 'Em lavagem', CURRENT_TIMESTAMP),
+ (7, 'Em preparação', CURRENT_TIMESTAMP),
+ (8, 'Pronto', CURRENT_TIMESTAMP),
+ (9, 'Entregue', CURRENT_TIMESTAMP);
+ select * from status
+
+ INSERT INTO oficinacarro.veiculo (id_veiculo, id_cliente, modelo_veiculo, placa_veiculo, marca_veiculo, ano_veiculo) VALUES
+ (1, 1, 'Palio', 'ABC1234', 'FIAT', 2002),
+ (2, 1, 'Gol', 'DEF5678', 'VOLKSWAGEN', 2021),
+ (3, 2, 'Celta', 'GHI9012', 'Chevrolet', 2015);
+ SELECT * FROM oficinacarro.veiculo;
+
+-- INSERT DA TABELA ABAIXO SERÁ O ULTIMO POIS ELA PRECISA DAS OUTRAS ABASTECIDAS DE DADOS
+
+ INSERT INTO statusVeiculos (id_status_veiculo, id_cliente, id_veiculo, id_status) VALUES
+ (1, 1, 1, 1),  -- Exemplo de status para o veículo 1 do cliente 1
+ (2, 1, 1, 2),  -- Exemplo de status diferente para o mesmo veículo
+ (3, 2, 2, 1),  -- Exemplo de status para o veículo 2 do cliente 2
+ (4, 2, 3, 3);  -- Exemplo de status para o veículo 3 do cliente 2
+  SELECT * FROM statusVeiculos
+
 
 
