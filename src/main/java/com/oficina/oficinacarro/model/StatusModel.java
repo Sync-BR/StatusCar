@@ -32,7 +32,7 @@ public class StatusModel {
 
     }
 
-    public StatusModel(int id, String emAnalise) {
+    public StatusModel(int id, String status) {
         dataInicio = new Date();
     }
 

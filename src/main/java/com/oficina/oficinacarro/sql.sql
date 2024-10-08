@@ -96,61 +96,6 @@ FROM
 WHERE
     sv.id_veiculo = 2;  -- Substitua 2 pelo ID do veículo desejado
 
--- 3. Stored Procedures
--- Mostrar Status na tela
-DELIMITER //
-
-CREATE PROCEDURE getStatusVeiculo(
-    IN p_id_veiculo INT
-)
-BEGIN
-    SELECT
-        sv.id_status_veiculo,
-        v.modelo_veiculo,
-        s.descricao_status,
-        sv.id_cliente,
-        c.nome_cliente,
-        sv.id_status,
-        s.data_inicio_status,
-        s.data_fim_status
-    FROM
-        oficinacarro.statusVeiculos sv
-    JOIN oficinacarro.veiculo v ON sv.id_veiculo = v.id_veiculo
-    JOIN oficinacarro.status s ON sv.id_status = s.id_status
-    JOIN oficinacarro.cliente c ON sv.id_cliente = c.id
-    WHERE sv.id_veiculo = p_id_veiculo;
-
-END //
-
-DELIMITER ;
-
--- Alterar Status
-DELIMITER //
-
-CREATE PROCEDURE updateStatusVeiculo(
-    IN p_id_veiculo INT,
-    IN p_novo_status INT
-)
-BEGIN
-    -- Atualiza o campo data_fim_status do status anterior
-    UPDATE oficinacarro.status
-    SET data_fim_status = NOW()
-    WHERE id_status = (SELECT id_status FROM oficinacarro.statusVeiculos WHERE id_veiculo = p_id_veiculo)
-    AND data_fim_status IS NULL;
-
-    -- Atualiza o status do veículo
-    UPDATE oficinacarro.statusVeiculos
-    SET id_status = p_novo_status
-    WHERE id_veiculo = p_id_veiculo;
-
-    -- Define a data de início do novo status
-    UPDATE oficinacarro.status
-    SET data_inicio_status = NOW(), data_fim_status = NULL
-    WHERE id_status = p_novo_status;
-
-END //
-
-DELIMITER ;
 
 -- INSERTS PARA TESTES
 
@@ -162,7 +107,8 @@ INSERT INTO cliente (id, nome_cliente, cpf_cliente, telefone_cliente, email_clie
 (5, 'Lucas Pereira', '567.890.123-44', '(11) 94321-0987', 'lucas.pereira@example.com', 'Rua E, 202', 'senha202', 'Cliente');
  SELECT * FROM cliente;
 
- NSERT INTO oficinacarro.status (id_status, descricao_status, data_inicio_status) VALUES
+
+ INSERT INTO oficinacarro.status (id_status, descricao_status, data_inicio_status) VALUES
  (1, 'Aguardando chegada', CURRENT_TIMESTAMP),
  (2, 'Ausente', CURRENT_TIMESTAMP),
  (3, 'Atrasado', CURRENT_TIMESTAMP),

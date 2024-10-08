@@ -64,20 +64,4 @@ public class VeiculoController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-
-    // Endpoint para buscar o status do veículo
-    @GetMapping("/status/{id}")
-    public ResponseEntity<List<Object[]>> getStatusVeiculo(@PathVariable Long id) {
-        List<Object[]> status = veiculoService.getStatusVeiculo(id);
-        return new ResponseEntity<>(status, HttpStatus.OK);
-    }
-
-    // Endpoint para alterar o status do veículo
-    @PostMapping("/status")
-    public ResponseEntity<Void> updateStatusVeiculo(@RequestParam Long id, @RequestParam Long novoStatus) {
-        veiculoService.updateStatusVeiculo(id, novoStatus);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
 }
