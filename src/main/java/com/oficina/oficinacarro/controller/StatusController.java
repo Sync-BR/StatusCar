@@ -30,19 +30,18 @@ public class StatusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StatusModel> getStatusById(@PathVariable int id) {
-        StatusModel status = statusRepository.findById((long) id)
-                .orElseThrow(() -> new RuntimeException("Status não encontrado para o id: " + id));
+        StatusModel status = statusRepository.findById(id);
         return ResponseEntity.ok(status);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateStatus(@PathVariable int id, @RequestBody StatusModel updatedStatus) {
+        System.out.println(updatedStatus);
         StatusModel status = statusRepository.findById((long) id)
                 .orElseThrow(() -> new RuntimeException("Status não encontrado para o id: " + id));
 
         status.setStatus(updatedStatus.getStatus());
         status.setDataInicio(updatedStatus.getDataInicio() != null ? updatedStatus.getDataInicio() : new Date());
-        status.setDataFim(updatedStatus.getDataFim());
 
         statusRepository.save(status);
 

@@ -40,7 +40,8 @@ public class LoginController {
             if(autenticacao.getCpf().equals(user.getCpf()) && autenticacao.getSenha().equals(user.getSenha())) {
                 long tipo = getType(user.getId());
                 String json = "{" +
-                        "\"tipo_user\": " + tipo + // Se tipo for numérico
+                        "\"tipo_user\": " + tipo + ", " +
+                        "\"cpf\": \"" + cpf + "\"" +
                         "}";
                 return new ResponseEntity<>(json +tipo,HttpStatus.OK);
             }
@@ -52,9 +53,7 @@ public class LoginController {
 
 
     @PostMapping("/usersLogin{email}")
-
     public ResponseEntity<HttpStatus> recuperarSenha(@PathVariable String email) {
-        System.out.println("Passei");
         ClienteModel clienteRecover = clienteRepository.findByEmail(email);
         if (clienteRecover != null) {
             String subject = "Recuperação de senha";

@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class VeiculoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_veiculo")
     private int id;
     @Column(name = "id_cliente", nullable = false)
     private int clienteID;

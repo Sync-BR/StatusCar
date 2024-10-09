@@ -13,7 +13,6 @@ import java.util.Date;
 @Table(name = "status", schema = "oficinacarro")
 public class StatusModel {
     @Id
-
     @Column(name = "id_status", nullable = false)
     private int id;
 
@@ -34,6 +33,14 @@ public class StatusModel {
 
     public StatusModel(int id, String emAnalise) {
         dataInicio = new Date();
+        dataFim = new Date();
+    }
+
+    public StatusModel(int id, String status, Date dataInicio, Date dataFim) {
+        this.id = id;
+        this.status = status;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
     public StatusModel() {

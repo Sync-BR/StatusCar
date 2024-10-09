@@ -27,8 +27,9 @@ CREATE TABLE oficinacarro.status (
                                      id_status INT NOT NULL ,
                                      descricao_status VARCHAR(45) NOT NULL,
                                      data_inicio_status TIMESTAMP NOT NULL,
-                                     data_fim_status TIMESTAMP DEFAULT NULL,
-                                     PRIMARY KEY (id_status)
+                                     data_fim_status TIMESTAMP  NULL,
+                                     PRIMARY KEY (id_status),
+                                         FOREIGN KEY (id_status) REFERENCES oficinacarro.veiculo (id_veiculo) ON DELETE CASCADE
 );
 
 CREATE TABLE oficinacarro.statusVeiculos (
@@ -48,6 +49,16 @@ CREATE TABLE oficinacarro.autenticacao (
                                            senha_cliente_aut VARCHAR(45) NOT NULL,
                                            PRIMARY KEY (id_cliente_aut),
                                            FOREIGN KEY (id_cliente_aut) REFERENCES oficinacarro.cliente (id) ON DELETE CASCADE
+);
+CREATE TABLE oficinacarro.notificacao (
+                                          id_notificacao INT NOT NULL AUTO_INCREMENT,
+                                          id_veiculo INT NOT NULL,
+                                          id_status INT NOT NULL,
+                                          descricao_notificacao VARCHAR(255) NOT NULL,
+                                          data_hora_notificacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                          PRIMARY KEY (id_notificacao),
+                                          FOREIGN KEY (id_veiculo) REFERENCES oficinacarro.veiculo (id_veiculo) ON DELETE CASCADE,
+                                          FOREIGN KEY (id_status) REFERENCES oficinacarro.status (id_status) ON DELETE NO ACTION
 );
 
 -- 1. Consulta Completa
