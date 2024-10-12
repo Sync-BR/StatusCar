@@ -1,5 +1,6 @@
 package com.oficina.oficinacarro.controller;
 
+import com.oficina.oficinacarro.enums.UsersEnums;
 import com.oficina.oficinacarro.model.ClienteModel;
 import com.oficina.oficinacarro.model.VeiculoModel;
 import com.oficina.oficinacarro.repository.ClienteRepository;
@@ -23,15 +24,16 @@ public class ClienteController {
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
-    public ResponseEntity<Integer> getCpfById(String cpf){
+    @GetMapping("/user/consultar/{cpf}")
+    public ResponseEntity<ClienteModel> getCpfById(@PathVariable String cpf){
         ClienteModel cliente = clienteRepository.findByCpf(cpf);
-        VeiculoModel veiculo = veiculoRepository.findByclienteID(cliente.getId());
-        return new ResponseEntity<>(veiculo.getId(), HttpStatus.OK);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
 
     @PostMapping("/user/add")
     public ResponseEntity<HttpStatus> cadastrarCliente(@RequestBody ClienteModel cadCliente){
+        System.out.println(cadCliente);
         if(cadCliente.getCpf().isEmpty()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
@@ -51,6 +53,9 @@ public class ClienteController {
 
     @PutMapping("/user/update{id}")
     public ResponseEntity<HttpStatus> updateCliente(@PathVariable Long id,@RequestBody ClienteModel cliente) {
+        System.out.println(cliente);
+        UsersEnums usersEnums = UsersEnums.cliente;
+        cliente.setRank(usersEnums);
         cliente.setId(Integer.parseInt(id.toString()));
         clienteRepository.save(cliente);
         return new ResponseEntity<>(HttpStatus.OK);

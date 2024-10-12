@@ -12,6 +12,8 @@ import java.util.List;
 public interface VeiculoRepository extends JpaRepository<VeiculoModel, Long> {
     List<VeiculoModel> findByClienteID(int clienteID);
     VeiculoModel findByclienteID(int clienteID);
+
+
     @Query("SELECT v FROM VeiculoModel v WHERE v.placa = :placa")
     VeiculoModel findByplaca(String placa);
     void deleteByplaca(String placa);

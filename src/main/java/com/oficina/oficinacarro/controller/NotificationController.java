@@ -5,26 +5,33 @@ import com.oficina.oficinacarro.model.NotificationModel;
 import com.oficina.oficinacarro.model.VeiculoModel;
 import com.oficina.oficinacarro.repository.ClienteRepository;
 import com.oficina.oficinacarro.repository.NotificationRepository;
+import com.oficina.oficinacarro.repository.StatusRepository;
 import com.oficina.oficinacarro.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/notification")
-public class NotificationController {
+    public class NotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
     private VeiculoRepository veiculoRepository;
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private StatusRepository statusRepository;
 
     @PostMapping("/enviar")
     public ResponseEntity<HttpStatus> criarNotificacao(@RequestBody NotificationModel notificationRequest) {
+        System.out.println("Noticação chegando " +notificationRequest);
+        System.out.println("Dados da notificação: " + notificationRequest);
+        notificationRequest.setData(new Date());
         NotificationModel notification = new NotificationModel(notificationRequest.getId_Veiculo(), notificationRequest.getId_Status(), notificationRequest.getDescricao());
         NotificationModel savedNotification = notificationRepository.save(notification);
         if (savedNotification != null) {
@@ -49,6 +56,17 @@ public class NotificationController {
         }
 
         return ResponseEntity.ok(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @DeleteMapping("/delete/by/{id}")
+    public ResponseEntity<HttpStatus> deleteVeiculoById(@PathVariable  int id) {
+        System.out.println("ID Notificação " +id);
+       // int sucess = notificationRepository.deleteByIdVeiculo(id);
+        notificationRepository.deleteById((long) id);
+//        if (sucess > 0) {
+//            return ResponseEntity.ok(HttpStatus.OK);
+//        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/consultar/{Placa}")
@@ -76,13 +94,14 @@ public class NotificationController {
             veiculoModel =  veiculoRepository.findByclienteID(clienteModel.getId());
             if(veiculoModel != null) {
                 List<NotificationModel> notificationModel = notificationRepository.findById_Veiculo(veiculoModel.getId());
-                if(notificationModel != null) {
+                if(notificationModel.size() != 0) {
                     System.out.println("ID" +veiculoModel.getId());
                     System.out.println("Retornando id" +notificationModel);
                     return ResponseEntity.ok(veiculoModel.getId());
 
                 } else{
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                    System.out.println("nada encontrado!");
+                    return ResponseEntity.status(HttpStatus.OK).build();
                 }
             }
         }

@@ -17,6 +17,7 @@ public interface NotificationRepository extends JpaRepository<NotificationModel,
     @Query("DELETE FROM NotificationModel n WHERE n.id_Veiculo = :idVeiculo")
     int deleteByIdVeiculo(@Param("idVeiculo") int idVeiculo);
     @Query("SELECT n FROM NotificationModel n WHERE n.id_Veiculo = :idVeiculo")
+
     List<NotificationModel> findById_Veiculo(@Param("idVeiculo") int idVeiculo);
 
     @Query("SELECT n FROM NotificationModel n WHERE n.id_Veiculo = :idVeiculos")

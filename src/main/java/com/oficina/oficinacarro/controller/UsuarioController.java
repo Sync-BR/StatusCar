@@ -17,16 +17,16 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
     @Autowired(required = true)
     private LoginRepository loginRepository;
-@PostMapping("/adicionar")
-    private ResponseEntity<HttpStatus> addCliente(@RequestBody UsuarioModel user){
-            usuarioRepository.save(user);
 
-                AutenticacaoModel autenticacaoModel = new AutenticacaoModel();
-                autenticacaoModel.setId(user.getId());
-                autenticacaoModel.setCpf(user.getCpf());
-                autenticacaoModel.setSenha(user.getSenha());
-                loginRepository.save(autenticacaoModel);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/adicionar")
+    private ResponseEntity<HttpStatus> addCliente(@RequestBody UsuarioModel user) {
+        usuarioRepository.save(user);
+        AutenticacaoModel autenticacaoModel = new AutenticacaoModel();
+        autenticacaoModel.setId(user.getId());
+        autenticacaoModel.setCpf(user.getCpf());
+        autenticacaoModel.setSenha(user.getSenha());
+        loginRepository.save(autenticacaoModel);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
 
     }

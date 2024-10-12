@@ -1,5 +1,6 @@
 package com.oficina.oficinacarro.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ public class NotificationModel {
     @Column(name = "descricao_notificacao", nullable = false)
     private String descricao;
     @Column(name = "data_hora_notificacao", nullable = false)
+    @JsonFormat(pattern = "MMM dd, yyyy hh:mm:ss a", locale = "en_US")
+
     private Date data;
 
     public NotificationModel() {

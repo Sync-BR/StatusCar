@@ -33,6 +33,7 @@ public class LoginController {
     @PostMapping("/login/{cpf}/{password}")
     public ResponseEntity<String> login(@PathVariable String cpf, @PathVariable String password) {
         AutenticacaoModel autenticacao = new AutenticacaoModel();
+        System.out.println("Autenticando");
         autenticacao.setCpf(cpf);
         autenticacao.setSenha(password);
         AutenticacaoModel user = loginRepository.findByCpf(autenticacao.getCpf());
@@ -52,9 +53,10 @@ public class LoginController {
     }
 
 
-    @PostMapping("/usersLogin{email}")
+    @PostMapping("/usersLogin/{email}")
     public ResponseEntity<HttpStatus> recuperarSenha(@PathVariable String email) {
         ClienteModel clienteRecover = clienteRepository.findByEmail(email);
+        System.out.println("clienteRecover " +clienteRecover);
         if (clienteRecover != null) {
             String subject = "Recuperação de senha";
             String text = "Olá, " + clienteRecover.getNome() +

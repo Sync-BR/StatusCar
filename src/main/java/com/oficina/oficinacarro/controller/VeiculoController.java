@@ -1,5 +1,6 @@
 package com.oficina.oficinacarro.controller;
 
+import com.oficina.oficinacarro.dto.VeiculoStatusDTO;
 import com.oficina.oficinacarro.enums.StateCar;
 import com.oficina.oficinacarro.model.ClienteModel;
 import com.oficina.oficinacarro.model.StatusModel;
@@ -13,8 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/veiculos")
@@ -53,12 +53,24 @@ public class VeiculoController {
         statusRepository.save(statusModel);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    @GetMapping("/consultar/veiculos/{cpf}")
-    public ResponseEntity<List<VeiculoModel>> getVeiculo(@PathVariable String cpf) {
+    @GetMapping("/consultar/veiculos/cpf/{cpf}")
+    public ResponseEntity<List<VeiculoModel>> getVeiculos(@PathVariable String cpf) {
         ClienteModel clienteCoppy = clienteRepository.findByCpf(cpf);
         List<VeiculoModel> veiculos = veiculoRepository.findByClienteID(clienteCoppy.getId());
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
+    }
+
+    @GetMapping("/consultar/veiculos/{cpf}")
+    public ResponseEntity<List<VeiculoStatusDTO>> getVeiculo(@PathVariable String cpf) {
+        ClienteModel clienteCoppy = clienteRepository.findByCpf(cpf);
+        List<VeiculoModel> veiculos = veiculoRepository.findByClienteID(clienteCoppy.getId());
+        List<VeiculoStatusDTO> veiculoStatusList = new ArrayList<>();
+        for(VeiculoModel veiculo : veiculos){
+            StatusModel statusModel = statusRepository.findById(veiculo.getId());
+            VeiculoStatusDTO veiculoStatusDTO = new VeiculoStatusDTO(veiculo, statusModel);
+            veiculoStatusList.add(veiculoStatusDTO);
+        }
+        return new ResponseEntity<>(veiculoStatusList, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletar/{placa}")
