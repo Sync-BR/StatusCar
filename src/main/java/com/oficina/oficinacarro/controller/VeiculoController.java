@@ -59,7 +59,12 @@ public class VeiculoController {
         List<VeiculoModel> veiculos = veiculoRepository.findByClienteID(clienteCoppy.getId());
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
     }
-
+    @GetMapping("/consultar/status/{status}")
+    public ResponseEntity<StatusModel> getStatus(@PathVariable int status) {
+        StatusModel statusModel = statusRepository.findById(status);
+        System.out.println(statusModel);
+        return new ResponseEntity<>(statusModel, HttpStatus.OK);
+    }
     @GetMapping("/consultar/veiculos/{cpf}")
     public ResponseEntity<List<VeiculoStatusDTO>> getVeiculo(@PathVariable String cpf) {
         ClienteModel clienteCoppy = clienteRepository.findByCpf(cpf);

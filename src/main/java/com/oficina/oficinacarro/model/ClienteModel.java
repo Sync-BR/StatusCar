@@ -28,7 +28,7 @@ public class ClienteModel {
     private String senha;
     @Column(name = "tipo_usuario", nullable = true)
     private UsersEnums rank;
-    @OneToMany(mappedBy = "clienteID", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clienteID", cascade = CascadeType.MERGE, orphanRemoval = true)
     @JsonIgnore()
     private List<VeiculoModel> veiculos;
 
